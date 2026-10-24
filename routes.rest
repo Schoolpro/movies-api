@@ -1,0 +1,23 @@
+
+### GET all movies - Local
+GET http://localhost:3000/movies
+
+### POST new movie - Local
+POST http://localhost:3000/movies
+Content-Type: application/json
+
+{
+  "title": "The Matrix",
+  "director": "Lana Wachowski and Lilly Wachowski",
+  "year": 1999,
+  "genre": "Sci-Fi",
+  "rating": 9,
+  "language": "English",
+  "duration": 136
+}
+
+### GET all movies - Render
+# GET https://YOUR-RENDER-URL.onrender.com/movies
+
+### POST new movie - Render
+# POST https://YOUR-RENDER-URL.onrender.com/movies
