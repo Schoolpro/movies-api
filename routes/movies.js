@@ -7,8 +7,26 @@ const moviesController = require('../controllers/moviesController');
 // GET all movies
 router.get('/', moviesController.getAllMovies);
 
-// POST a new movie
-router.post('/', moviesController.createMovie);
+
+ // POST a new movie
+router.post('/', (req, res, next) => {
+  /* #swagger.parameters['body'] = {
+    in: 'body',
+    description: 'Movie information',
+    required: true,
+    schema: {
+      title: 'Interstellar',
+      director: 'Christopher Nolan',
+      year: 2014,
+      genre: 'Sci-Fi',
+      rating: 9,
+      language: 'English',
+      duration: 169
+    }
+  } */
+  next();
+}, moviesController.createMovie);
+
 
 // GET movie by ID
 router.get('/:id', (req, res) => {

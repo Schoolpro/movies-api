@@ -35,6 +35,47 @@
       },
       "post": {
         "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Movie information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Interstellar"
+                },
+                "director": {
+                  "type": "string",
+                  "example": "Christopher Nolan"
+                },
+                "year": {
+                  "type": "number",
+                  "example": 2014
+                },
+                "genre": {
+                  "type": "string",
+                  "example": "Sci-Fi"
+                },
+                "rating": {
+                  "type": "number",
+                  "example": 9
+                },
+                "language": {
+                  "type": "string",
+                  "example": "English"
+                },
+                "duration": {
+                  "type": "number",
+                  "example": 169
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
