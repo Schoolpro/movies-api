@@ -6,8 +6,8 @@ const doc = {
     title: 'Movies API',
     description: 'Movies API for CSE 341 Project 2'
   },
-  host: 'localhost:3000',
-  schemes: ['http']
+host: 'movies-api-toeb.onrender.com',
+schemes: ['https']
 };
 
 const outputFile = './swagger.json';

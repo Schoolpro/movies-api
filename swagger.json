@@ -5,10 +5,10 @@
     "description": "Movies API for CSE 341 Project 2",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "movies-api-toeb.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/": {
