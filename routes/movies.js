@@ -28,22 +28,17 @@ router.post('/', (req, res, next) => {
 }, moviesController.createMovie);
 
 
-// GET movie by ID
-router.get('/:id', (req, res) => {
-  // #swagger.summary = 'Get movie by ID'
-  res.status(501).json({ message: 'Not implemented yet' });
-});
+// GET - Get movie by ID
+router.get('/:id', moviesController.getMovieById);
 
-// PUT update movie
-router.put('/:id', (req, res) => {
-  // #swagger.summary = 'Update movie by ID'
-  res.status(501).json({ message: 'Not implemented yet' });
-});
 
-// DELETE movie
-router.delete('/:id', (req, res) => {
-  // #swagger.summary = 'Delete movie by ID'
-  res.status(501).json({ message: 'Not implemented yet' });
-});
+ // PUT - Update movie by ID
+router.put('/:id', moviesController.updateMovie);
+
+
+
+ // DELETE - Delete movie by ID
+router.delete('/:id', moviesController.deleteMovie);
+
 
 module.exports = router;

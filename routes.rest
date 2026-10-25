@@ -21,3 +21,87 @@ Content-Type: application/json
 
 ### POST new movie - Render
 # POST https://YOUR-RENDER-URL.onrender.com/movies
+
+
+
+### PUT - Update The Matrix
+PUT http://localhost:3000/movies/6add0cd2312543e8cab177f7
+Content-Type: application/json
+
+{
+  "title": "The Matrix",
+  "director": "Lana Wachowski and Lilly Wachowski",
+  "year": 1999,
+  "genre": "Action",
+  "rating": 10,
+  "language": "English",
+  "duration": 136
+}
+
+
+
+### DELETE - Remove duplicate Interstellar
+DELETE http://localhost:3000/movies/6add57f685e603070c670b48
+
+
+
+### POST - Test invalid movie data
+POST http://localhost:3000/movies
+Content-Type: application/json
+
+{
+  "title": "Test Movie",
+  "director": "Test Director",
+  "year": 2020,
+  "genre": "Action",
+  "rating": 15,
+  "language": "English",
+  "duration": 120
+}
+
+
+
+### PUT - Update The Matrix
+PUT http://localhost:3000/movies/6add0cd2312543e8cab177f7
+Content-Type: application/json
+
+{
+  "title": "The Matrix",
+  "director": "Lana Wachowski and Lilly Wachowski",
+  "year": 1999,
+  "genre": "Action",
+  "rating": 10,
+  "language": "English",
+  "duration": 136
+}
+
+
+
+### DELETE - Test invalid movie ID
+DELETE http://localhost:3000/movies/invalid-id
+
+### GET - Get The Matrix by ID
+GET http://localhost:3000/movies/6add0cd2312543e8cab177f7
+
+### GET - Test invalid movie ID
+GET http://localhost:3000/movies/invalid-id
+
+### GET - Test movie not found
+GET http://localhost:3000/movies/000000000000000000000000
+
+### PUT - Test movie not found
+PUT http://localhost:3000/movies/000000000000000000000000
+Content-Type: application/json
+
+{
+  "title": "Test Movie",
+  "director": "Test Director",
+  "year": 2020,
+  "genre": "Action",
+  "rating": 8,
+  "language": "English",
+  "duration": 120
+}
+
+### DELETE - Test movie not found
+DELETE http://localhost:3000/movies/000000000000000000000000
