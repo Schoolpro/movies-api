@@ -12,6 +12,9 @@ const passport = require('./config/passport');
 const { connectDB } = require('./db/connect');
 const moviesRoutes = require('./routes/movies');
 
+// Agrega las rutas de directores.
+const directorsRoutes = require('./routes/directors');
+
 
 // Import Google OAuth login, callback, and logout routes.
 const authRoutes = require('./routes/auth');
@@ -60,6 +63,8 @@ app.get('/', (req, res) => {
 
 // Movies routes
 app.use('/movies', moviesRoutes);
+
+app.use('/directors', directorsRoutes);
 
 // Register Google OAuth authentication routes.
 app.use('/auth', authRoutes);

@@ -4,12 +4,15 @@ const router = express.Router();
 
 const moviesController = require('../controllers/moviesController');
 
+// Las escrituras necesitan una sesión iniciada.
+const requireAuth = require('../middleware/authenticate');
+
 // GET all movies
 router.get('/', moviesController.getAllMovies);
 
 
  // POST a new movie
-router.post('/', (req, res, next) => {
+router.post('/', requireAuth, (req, res, next) => {
   /* #swagger.parameters['body'] = {
     in: 'body',
     description: 'Movie information',
@@ -33,12 +36,12 @@ router.get('/:id', moviesController.getMovieById);
 
 
  // PUT - Update movie by ID
-router.put('/:id', moviesController.updateMovie);
+router.put('/:id', requireAuth, moviesController.updateMovie);
 
 
 
  // DELETE - Delete movie by ID
-router.delete('/:id', moviesController.deleteMovie);
+router.delete('/:id', requireAuth, moviesController.deleteMovie);
 
 
 module.exports = router;

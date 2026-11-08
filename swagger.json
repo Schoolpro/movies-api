@@ -2,14 +2,10 @@
   "swagger": "2.0",
   "info": {
     "title": "Movies API",
-    "description": "Movies API for CSE 341 Project 2",
+    "description": "Acá podés consultar películas y directores. Para cambiar los datos, iniciá sesión desde /auth/google y después volvé a /api-docs.",
     "version": "1.0.0"
   },
-  "host": "movies-api-toeb.onrender.com",
   "basePath": "/",
-  "schemes": [
-    "https"
-  ],
   "paths": {
     "/": {
       "get": {
@@ -23,81 +19,84 @@
     },
     "/movies/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Películas"
+        ],
+        "description": "Devuelve todos los registros.",
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "OK"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "No se pudo completar la solicitud"
           }
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Películas"
+        ],
+        "description": "Para agregar, editar o borrar datos, primero iniciá sesión desde /auth/google en este navegador y volvé a esta página.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "description": "Movie information",
             "required": true,
+            "description": "Completá todos los campos.",
             "schema": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "type": "string",
-                  "example": "Interstellar"
-                },
-                "director": {
-                  "type": "string",
-                  "example": "Christopher Nolan"
-                },
-                "year": {
-                  "type": "number",
-                  "example": 2014
-                },
-                "genre": {
-                  "type": "string",
-                  "example": "Sci-Fi"
-                },
-                "rating": {
-                  "type": "number",
-                  "example": 9
-                },
-                "language": {
-                  "type": "string",
-                  "example": "English"
-                },
-                "duration": {
-                  "type": "number",
-                  "example": 169
-                }
-              }
+              "$ref": "#/definitions/Movie"
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Registro guardado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Revisá los campos enviados"
+          },
+          "401": {
+            "description": "Falta iniciar sesión"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "No se pudo completar la solicitud"
           }
         }
       }
     },
     "/movies/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Películas"
+        ],
+        "description": "Busca un registro por su ID.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{24}$"
           }
         ],
         "responses": {
@@ -105,67 +104,179 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "El ID o los datos no son válidos"
           },
           "404": {
-            "description": "Not Found"
+            "description": "No se encontró el registro"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "No se pudo completar la solicitud"
           }
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Películas"
+        ],
+        "description": "Para agregar, editar o borrar datos, primero iniciá sesión desde /auth/google en este navegador y volvé a esta página.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{24}$"
           },
           {
             "name": "body",
             "in": "body",
+            "required": true,
+            "description": "Completá todos los campos.",
             "schema": {
-              "type": "object",
-              "properties": {
-                "year": {
-                  "example": "any"
-                },
-                "rating": {
-                  "example": "any"
-                },
-                "duration": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Movie"
             }
           }
         ],
         "responses": {
           "204": {
-            "description": "No Content"
+            "description": "Registro actualizado, sin cuerpo de respuesta"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Revisá los campos enviados"
+          },
+          "401": {
+            "description": "Falta iniciar sesión"
           },
           "404": {
-            "description": "Not Found"
+            "description": "No se encontró el registro"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "No se pudo completar la solicitud"
           }
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Películas"
+        ],
+        "description": "Para agregar, editar o borrar datos, primero iniciá sesión desde /auth/google en este navegador y volvé a esta página.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Registro eliminado"
+          },
+          "400": {
+            "description": "El ID o los datos no son válidos"
+          },
+          "401": {
+            "description": "Falta iniciar sesión"
+          },
+          "404": {
+            "description": "No se encontró el registro"
+          },
+          "500": {
+            "description": "No se pudo completar la solicitud"
+          }
+        }
+      }
+    },
+    "/directors/": {
+      "get": {
+        "tags": [
+          "Directores"
+        ],
+        "description": "Devuelve todos los registros.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "No se pudo completar la solicitud"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Directores"
+        ],
+        "description": "Para agregar, editar o borrar datos, primero iniciá sesión desde /auth/google en este navegador y volvé a esta página.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Completá todos los campos.",
+            "schema": {
+              "$ref": "#/definitions/Director"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Registro guardado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Revisá los campos enviados"
+          },
+          "401": {
+            "description": "Falta iniciar sesión"
+          },
+          "500": {
+            "description": "No se pudo completar la solicitud"
+          }
+        }
+      }
+    },
+    "/directors/{id}": {
+      "get": {
+        "tags": [
+          "Directores"
+        ],
+        "description": "Busca un registro por su ID.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{24}$"
           }
         ],
         "responses": {
@@ -173,14 +284,230 @@
             "description": "OK"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "El ID o los datos no son válidos"
           },
           "404": {
-            "description": "Not Found"
+            "description": "No se encontró el registro"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "No se pudo completar la solicitud"
           }
+        }
+      },
+      "put": {
+        "tags": [
+          "Directores"
+        ],
+        "description": "Para agregar, editar o borrar datos, primero iniciá sesión desde /auth/google en este navegador y volvé a esta página.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{24}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Completá todos los campos.",
+            "schema": {
+              "$ref": "#/definitions/Director"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Registro actualizado, sin cuerpo de respuesta"
+          },
+          "400": {
+            "description": "Revisá los campos enviados"
+          },
+          "401": {
+            "description": "Falta iniciar sesión"
+          },
+          "404": {
+            "description": "No se encontró el registro"
+          },
+          "500": {
+            "description": "No se pudo completar la solicitud"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Directores"
+        ],
+        "description": "Para agregar, editar o borrar datos, primero iniciá sesión desde /auth/google en este navegador y volvé a esta página.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Registro eliminado"
+          },
+          "400": {
+            "description": "El ID o los datos no son válidos"
+          },
+          "401": {
+            "description": "Falta iniciar sesión"
+          },
+          "404": {
+            "description": "No se encontró el registro"
+          },
+          "500": {
+            "description": "No se pudo completar la solicitud"
+          }
+        }
+      }
+    },
+    "/auth/google": {
+      "get": {
+        "tags": [
+          "Sesión"
+        ],
+        "description": "Abrí esta ruta en el navegador para iniciar sesión con Google. No uses Try it out para el login.",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/auth/google/callback": {
+      "get": {
+        "tags": [
+          "Sesión"
+        ],
+        "description": "Google vuelve a esta ruta después de iniciar sesión. No hace falta completarla a mano.",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/auth/user": {
+      "get": {
+        "tags": [
+          "Sesión"
+        ],
+        "description": "Muestra el usuario que inició sesión. Sin sesión responde 401.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "tags": [
+          "Sesión"
+        ],
+        "description": "Cierra la sesión de esta aplicación y vuelve al inicio.",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Movie": {
+      "type": "object",
+      "required": [
+        "title",
+        "director",
+        "year",
+        "genre",
+        "rating",
+        "language",
+        "duration"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Interstellar"
+        },
+        "director": {
+          "type": "string",
+          "example": "Christopher Nolan"
+        },
+        "year": {
+          "type": "integer",
+          "minimum": 1888,
+          "example": 2014
+        },
+        "genre": {
+          "type": "string",
+          "example": "Sci-Fi"
+        },
+        "rating": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10,
+          "example": 9
+        },
+        "language": {
+          "type": "string",
+          "example": "English"
+        },
+        "duration": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 169
+        }
+      }
+    },
+    "Director": {
+      "type": "object",
+      "required": [
+        "name",
+        "birthYear",
+        "nationality",
+        "biography"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Christopher Nolan"
+        },
+        "birthYear": {
+          "type": "integer",
+          "minimum": 1800,
+          "maximum": 2026,
+          "example": 1970
+        },
+        "nationality": {
+          "type": "string",
+          "example": "British-American"
+        },
+        "biography": {
+          "type": "string",
+          "example": "Director y guionista."
         }
       }
     }
